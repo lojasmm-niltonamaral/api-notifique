@@ -32,22 +32,14 @@ class UserMixin(db.Document):
     sexo = StringField(required=True)
     senha = StringField(required=True)
     criadoem = DateTimeField(default=datetime.now)
-    ativo = BooleanField(default=True)
-
-    def is_active(self):
-        return self.active
-
-class Enderecos(EmbeddedDocument):
-    """
-    Endereço de cadastro
-    """
-    meta = {
-        'ordering': ['endereco']
-    }
-    
     endereco = StringField(default='')
     cidade = StringField(default='')
     estado = StringField(default='')
+    ativo = BooleanField(default=True)
+
+    def is_active(self):
+        return self.ativo
+
 
 class User(UserMixin):
     '''
@@ -56,5 +48,4 @@ class User(UserMixin):
     meta = {'collection': 'users'}
 
     nome = StringField(required=True)
-    cpf = StringField(default='')
-    endereco = EmbeddedDocumentField(Enderecos, default=Enderecos)
+    cpf = StringField(default='', unique=True)

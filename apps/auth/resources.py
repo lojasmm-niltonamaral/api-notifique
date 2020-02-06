@@ -24,9 +24,7 @@ from .schemas import LoginSchema
 
 class AuthResource(Resource):
     def post(self, *args, **kwargs):
-        '''
-        Route to do login in API
-        '''
+
         req_data = request.get_json() or None
         user = None
         login_schema = LoginSchema()
@@ -40,25 +38,16 @@ class AuthResource(Resource):
         if errors:
             return resp_data_invalid('Users', errors)
 
-        # Buscamos nosso usuário pelo email
         user = get_user_by_email(data.get('email'))
 
-        # Em caso de exceção ou não é uma instancia do Modelo de User
-        # retornamos a resposta
         if not isinstance(user, User):
             return user
 
-        # Verificamos se o usuário está ativo na plataforma. Se não ele
-        # não podera autenticar e não ter acesso a nada
         if not user.is_active():
             return resp_notallowed_user('Auth')
 
-        # Conferimos a senha informada no payload de dados com a senha cadastrada
-        # em nosso banco.
         if checkpw(data.get('senha').encode('utf-8'), user.senha.encode('utf-8')):
 
-            # Chamamos os metodos para criar os tokens passando como identidade
-            # o email do nosso usuario
             extras = {
                 'token': create_access_token(identity=user.email),
                 'refresh': create_refresh_token(identity=user.email)
@@ -76,10 +65,7 @@ class RefreshTokenResource(Resource):
 
     @jwt_refresh_token_required
     def post(self, *args, **kwargs):
-        '''
-        Refresh a token that expired.
-        http://flask-jwt-extended.readthedocs.io/en/latest/refresh_tokens.html
-        '''
+        
         extras = {
             'token': create_access_token(identity=get_jwt_identity()),
         }

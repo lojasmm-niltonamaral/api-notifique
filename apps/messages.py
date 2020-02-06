@@ -12,6 +12,9 @@ MSG_RESOURCE_FETCHED = '{} retornado(a).'
 MSG_RESOURCE_UPDATED = '{} atualizado(a).'
 MSG_RESOURCE_DELETED = '{} deletado(a).'
 
+MSG_RESOURCE_INATIVO = '{} inativado(a).'
+MSG_RESOURCE_ATIVO = '{} ativado(a).'
+
 MSG_TOKEN_CREATED = 'Token criado.'
 MSG_INVALID_CREDENTIALS = 'As credenciais estão inválidas para log in.'
 MSG_TOKEN_EXPIRED = 'Token expirou.'

@@ -14,4 +14,4 @@ flask-mongoengine==0.9.5
 mongoengine==0.15.0
 marshmallow==2.15.6
 Flask-JWT-Extended==3.13.1
-PyJWT==1.6.4
+PyJWT==2.4.0
